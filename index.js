@@ -52,13 +52,29 @@ list.children('li').each((i, val) => {
 
   // Get the currency (eg. CAD, US)
   const currency = $(priceObj).text().trim().split(symbol)[0]
-  const price = parseFloat(getPrice(val))
   const shipping = parseFloat(getShipping(val))
+  
+  let formattedPrice
+
+  if ($(priceObj).text().trim().indexOf(symbol, $(priceObj).text().trim().indexOf(symbol)+1) != -1) {
+    // Multiple prices
+    let prices = $(priceObj).text().trim().split(' to ')
+
+    prices = prices.map(p =>
+      `${currency} ${symbol}${priceFormat(parseFloat(p.replace(/^\D+/g, '').replace(',', '')) + shipping)}`
+    )
+
+    formattedPrice = `${prices[0]} to ${prices[1]}`
+  } else {
+    // Singular price
+    const price = parseFloat(getPrice(val))
+    formattedPrice = `${currency} ${symbol}${priceFormat(price + shipping)}`
+  }
 
   // If there is a shipping price (parseFloat returns null if there isn't any float), change it up
   if (shipping) {
     $(shipObj).text(`Shipping was: $${shipping}`)
-    $(priceObj).text(`${currency} ${symbol}${priceFormat(price + shipping)}`)
+    $(priceObj).text(formattedPrice)
   }
 })
 
