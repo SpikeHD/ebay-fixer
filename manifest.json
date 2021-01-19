@@ -12,6 +12,11 @@
   },
   "content_scripts": [
     {
+      "matches":["*://*.ebay.ca/*"],
+      "js":["import/jquery.js", "index.js"],
+      "run_at": "document_end"
+    },
+    {
       "matches": ["*://*.ebay.ca/*"],
       "js": ["index.js"],
       "run_at":"document_end"

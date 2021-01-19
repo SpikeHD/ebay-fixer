@@ -60,7 +60,7 @@ list.children('li').each((i, val) => {
   // If there is a shipping price (parseFloat returns null if there isn't any float), change it up
   if (shipping) {
     $(shipObj).text(`Shipping was: $${shipping}`)
-    $(priceObj).text(`${currency} ${symbol + priceFormat(price + shipping)}`)
+    $(priceObj).text(`${currency} ${symbol}${priceFormat(price + shipping)}`)
   }
 })
 
