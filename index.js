@@ -81,6 +81,16 @@ list.children('li').each((i, val) => {
 /**
  * Allows you to click the outside of the tracking window to close it.
  */
-(function () {
-
-})()
+document.addEventListener('click', (evt) => {
+  // Use vanilla listener, since the element won't exist yer
+  if (evt.target.classList.contains('oly-m')) {
+    // Simulating clicking the X is no enough, we have to
+    // modify the attributes the dirty way
+    $('a.oly-c').click()
+    $('body').removeClass('noscroll')
+    $('.oly-m').remove()
+    $('.oly-b').children().remove()
+    $('.oly-f').children().remove()
+    $('#oly_1').css('display', 'none')
+  }
+})
