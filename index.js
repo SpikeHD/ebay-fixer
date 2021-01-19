@@ -86,11 +86,7 @@ document.addEventListener('click', (evt) => {
   if (evt.target.classList.contains('oly-m')) {
     // Simulating clicking the X is no enough, we have to
     // modify the attributes the dirty way
-    $('a.oly-c').click()
-    $('body').removeClass('noscroll')
-    $('.oly-m').remove()
-    $('.oly-b').children().remove()
-    $('.oly-f').children().remove()
-    $('#oly_1').css('display', 'none')
+    $('#oly_1').css('pointer-events', 'all')
+    document.getElementsByClassName('oly-c')[0].click()
   }
 })
