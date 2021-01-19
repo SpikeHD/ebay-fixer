@@ -84,9 +84,6 @@ list.children('li').each((i, val) => {
 document.addEventListener('click', (evt) => {
   // Use vanilla listener, since the element won't exist yer
   if (evt.target.classList.contains('oly-m')) {
-    // Simulating clicking the X is no enough, we have to
-    // modify the attributes the dirty way
-    $('#oly_1').css('pointer-events', 'all')
     document.getElementsByClassName('oly-c')[0].click()
   }
 })
