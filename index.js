@@ -50,16 +50,17 @@ function priceFormat(p) {
     // Get the objects, there are (from what I've seen) two different possibilities. Maybe there are more, idk
     const shipObj = $(val).find('.lvshipping').length > 0 ? $(val).find('.lvshipping'):$(val).find('.s-item__shipping')
     const priceObj = $(val).find('.lvprice').length > 0 ? $(val).find('.lvprice'):$(val).find('.s-item__price')
-    
-    // Get the currency for consistency I guess
-    const currency = $(priceObj).text().trim().split('$')[0]
+    const symbol = priceFormat($(priceObj).text().trim())[0]
+
+    // Get the currency (eg. CAD, US)
+    const currency = $(priceObj).text().trim().split(symbol)[0]
     const price = parseFloat(getPrice(val))
     const shipping = parseFloat(getShipping(val))
     
     // If there is a shipping price (parseFloat returns null if there isn't any float), change it up
     if(shipping) {
       $(shipObj).text(`Shipping was: $${shipping}`)
-      $(priceObj).text(`${currency} $${Math.round((price+shipping + Number.EPSILON) * 100)/100}`)
+      $(priceObj).text(`${currency} ${symbol + priceFormat(price+shipping)}`)
     }
   })
 })();
