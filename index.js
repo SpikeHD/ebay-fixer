@@ -33,37 +33,36 @@ function priceFormat(p) {
  * added to the main price, and the shipping price will be shown
  * as "Shipping was: $XX.XX".
  */
-(function () {
-  // Sometimes the lists are different. Beats me as to why
-  const list = $('#ListViewInner').length > 0 ?  $('#ListViewInner'):$('.srp-results')
-  function getShipping(val) {
-	  const shipping = $(val).find('.lvshipping').text().trim() || $(val).find('.s-item__shipping').text().trim()
-  	return shipping.replace(/^\D+/g, '').replace(',', '')
-  }
-  
-  function getPrice(val) {
-  	const price = $(val).find('.lvprice').text().trim() || $(val).find('.s-item__price').text().trim()
-  	return price.replace(/^\D+/g, '').replace(',', '')
-  }
+const list = $('#ListViewInner').length > 0 ? $('#ListViewInner') : $('.srp-results')
+function getShipping(val) {
+  const shipping = $(val).find('.lvshipping').text().trim() || $(val).find('.s-item__shipping').text().trim()
+  return shipping.replace(/^\D+/g, '').replace(',', '')
+}
 
-  list.children('li').each((i, val) => {
-    // Get the objects, there are (from what I've seen) two different possibilities. Maybe there are more, idk
-    const shipObj = $(val).find('.lvshipping').length > 0 ? $(val).find('.lvshipping'):$(val).find('.s-item__shipping')
-    const priceObj = $(val).find('.lvprice').length > 0 ? $(val).find('.lvprice'):$(val).find('.s-item__price')
-    const symbol = priceFormat($(priceObj).text().trim())[0]
+function getPrice(val) {
+  const price = $(val).find('.lvprice').text().trim() || $(val).find('.s-item__price').text().trim()
+  return price.replace(/^\D+/g, '').replace(',', '')
+}
 
-    // Get the currency (eg. CAD, US)
-    const currency = $(priceObj).text().trim().split(symbol)[0]
-    const price = parseFloat(getPrice(val))
-    const shipping = parseFloat(getShipping(val))
-    
-    // If there is a shipping price (parseFloat returns null if there isn't any float), change it up
-    if(shipping) {
-      $(shipObj).text(`Shipping was: $${shipping}`)
-      $(priceObj).text(`${currency} ${symbol + priceFormat(price+shipping)}`)
-    }
-  })
-})();
+console.log($('.srp-results'))
+
+list.children('li').each((i, val) => {
+  // Get the objects, there are (from what I've seen) two different possibilities. Maybe there are more, idk
+  const shipObj = $(val).find('.lvshipping').length > 0 ? $(val).find('.lvshipping') : $(val).find('.s-item__shipping')
+  const priceObj = $(val).find('.lvprice').length > 0 ? $(val).find('.lvprice') : $(val).find('.s-item__price')
+  const symbol = priceFormat($(priceObj).text().trim())[0]
+
+  // Get the currency (eg. CAD, US)
+  const currency = $(priceObj).text().trim().split(symbol)[0]
+  const price = parseFloat(getPrice(val))
+  const shipping = parseFloat(getShipping(val))
+
+  // If there is a shipping price (parseFloat returns null if there isn't any float), change it up
+  if (shipping) {
+    $(shipObj).text(`Shipping was: $${shipping}`)
+    $(priceObj).text(`${currency} ${symbol + priceFormat(price + shipping)}`)
+  }
+})
 
 /**
  * Allows you to click the outside of the tracking window to close it.
