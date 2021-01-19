@@ -1,0 +1,19 @@
+{
+  "manifest_version": 2,
+  "name": "Ebay Fixer",
+  "version": "1.0",
+  "description": "Fixes some general issues with eBay's website",
+  "icons": {
+    "48": ""
+  },
+  "background":
+  {
+    "scripts": ["import/jquery-2.0.3.js", "index.js"]
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.ebay.*/*"],
+      "js": ["index.js"]
+    }
+  ]
+}
