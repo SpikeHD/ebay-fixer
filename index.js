@@ -3,7 +3,7 @@
  */
 function priceFormat(p) {
   p = '' + p
-  let currencySymbol = p.replace(/[,.]+/g, '').replace(/\d/g, '')
+  let currencySymbol = p.replace(/[,.]+/g, '').replace(/[a-zA-Z\d\S]/g, '')
   if (currencySymbol) p = p.replace(currencySymbol, '')
 
   if (!p.includes('.') && !p.includes(',')) {
@@ -44,13 +44,11 @@ function getPrice(val) {
   return price.replace(/^\D+/g, '').replace(',', '')
 }
 
-console.log($('.srp-results'))
-
 list.children('li').each((i, val) => {
   // Get the objects, there are (from what I've seen) two different possibilities. Maybe there are more, idk
   const shipObj = $(val).find('.lvshipping').length > 0 ? $(val).find('.lvshipping') : $(val).find('.s-item__shipping')
   const priceObj = $(val).find('.lvprice').length > 0 ? $(val).find('.lvprice') : $(val).find('.s-item__price')
-  const symbol = priceFormat($(priceObj).text().trim())[0]
+  const symbol = $(priceObj).text().trim().split(/[a-zA-Z\d]/g)[1].split(/[a-zA-Z\d]/g)[0]
 
   // Get the currency (eg. CAD, US)
   const currency = $(priceObj).text().trim().split(symbol)[0]
