@@ -20,8 +20,6 @@ function priceFormat(p) {
     p = `${dollars}.${cents}`
   }
 
-  console.log(parseFloat(p).toFixed(2))
-
   p = currencySymbol + parseFloat(p).toFixed(2).toLocaleString('en')
 
   return p
