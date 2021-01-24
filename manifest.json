@@ -8,7 +8,7 @@
   },
   "content_scripts": [
     {
-      "matches": ["*://*.ebay.ca/*"],
+      "matches": ["*://*.ebay.co.uk/*", "*://*.ebay.com/*", "*://*.ebay.ca/*", "*://*.ebay.com.au/*", "*://*.ebay.ie/*", "*://*.ebay.de/*", "*://*.ebay.in/*", "*://*.ebay.fr/*", "*://*.ebay.es/*", "*://*.ebay.it/*", "*://*.benl.ebay.be/*", "*://*.ebay.nl/*", "*://*.ebay.at/*", "*://*.ebay.ch/*", "*://*.ebay.pl//*", "*://*.ebay.com.sg//*", "*://*.ebay.cn//*", "*://*.ebay.com.tw//*", "*://*.ebay.com.hk/*", "*://*.ebay.co.kr//*", "*://*.ebay.ph//*", "*://*.ebay.com.my/*"],
       "js": ["import/jquery.js", "src/listeners.js", "src/shippingCalc.js"],
       "run_at":"document_end"
     }
