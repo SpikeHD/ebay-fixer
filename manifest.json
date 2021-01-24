@@ -8,17 +8,17 @@
   },
   "background":
   {
-    "scripts": ["import/jquery.js", "index.js"]
+    "scripts": ["import/jquery.js", "src/shippingCalc.js"]
   },
   "content_scripts": [
     {
       "matches":["*://*.ebay.ca/*"],
-      "js":["import/jquery.js", "index.js"],
+      "js":["import/jquery.js", "src/shippingCalc.js"],
       "run_at": "document_end"
     },
     {
       "matches": ["*://*.ebay.ca/*"],
-      "js": ["index.js"],
+      "js": ["src/listeners.js", "src/shippingCalc.js"],
       "run_at":"document_end"
     }
   ]

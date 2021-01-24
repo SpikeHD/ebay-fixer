@@ -1,6 +1,3 @@
-/**
- * Price formatter, snagged from another project of mine.
- */
 function priceFormat(p) {
   p = '' + p
   let currencySymbol = p.replace(/[,.]+/g, '').replace(/[a-zA-Z\d\S]/g, '')
@@ -23,7 +20,9 @@ function priceFormat(p) {
     p = `${dollars}.${cents}`
   }
 
-  p = currencySymbol + parseFloat(p).toLocaleString('en')
+  console.log(parseFloat(p).toFixed(2))
+
+  p = currencySymbol + parseFloat(p).toFixed(2).toLocaleString('en')
 
   return p
 }
@@ -34,6 +33,7 @@ function priceFormat(p) {
  * as "Shipping was: $XX.XX".
  */
 const list = $('#ListViewInner').length > 0 ? $('#ListViewInner') : $('.srp-results')
+
 function getShipping(val) {
   const shipping = $(val).find('.lvshipping').text().trim() || $(val).find('.s-item__shipping').text().trim()
   return shipping.replace(/^\D+/g, '').replace(',', '')
@@ -53,10 +53,10 @@ list.children('li').each((i, val) => {
   // Get the currency (eg. CAD, US)
   const currency = $(priceObj).text().trim().split(symbol)[0]
   const shipping = parseFloat(getShipping(val))
-  
+
   let formattedPrice
 
-  if ($(priceObj).text().trim().indexOf(symbol, $(priceObj).text().trim().indexOf(symbol)+1) != -1) {
+  if ($(priceObj).text().trim().indexOf(symbol, $(priceObj).text().trim().indexOf(symbol) + 1) != -1) {
     // Multiple prices
     let prices = $(priceObj).text().trim().split(' to ')
 
@@ -73,17 +73,7 @@ list.children('li').each((i, val) => {
 
   // If there is a shipping price (parseFloat returns null if there isn't any float), change it up
   if (shipping) {
-    $(shipObj).text(`Shipping was: $${shipping}`)
+    $(shipObj).text(`Shipping was: $${priceFormat(shipping)}`)
     $(priceObj).text(formattedPrice)
-  }
-})
-
-/**
- * Allows you to click the outside of the tracking window to close it.
- */
-document.addEventListener('click', (evt) => {
-  // Use vanilla listener, since the element won't exist yer
-  if (evt.target.classList.contains('oly-m')) {
-    document.getElementsByClassName('oly-c')[0].click()
   }
 })
